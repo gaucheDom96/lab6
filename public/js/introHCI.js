@@ -8,6 +8,7 @@ $(document).ready(function() {
 /*
  * Function that is called when the document is ready.
  */
+
 function initializePage() {
 	$('.project a').click(addProjectDetails);
 
@@ -28,7 +29,7 @@ function addProjectDetails(e) {
 		console.log(result); 
 		var projectHTML = '<a href="#" class="thumbnail">' + '<img src="' + result['image'] + 
 		'" class="detailsImage">' + '<p>' + result['title'] + '</p>' + '<p><small>' 
-		+ result['date'] + '</small></p/a>'; 
+		+ result['date'] + '</small></p/a>' + result['summary']; 
 		console.log("this shit sucks " + projectHTML)
 		$(".details", idNumber);
 		console.log('this is our id #' + idNumber);
@@ -51,5 +52,15 @@ function randomizeColors(e) {
 	$('.jumbotron h1').text("Javascript has taken control");
 	$("#testjs").text("Please wait...")
 	$(".jumbotron p").toggleClass("active");
-	$.get("/palette/"); 
+	$.get("/palette", randomColor); 
+}
+
+function randomColor(result) {
+	var hex = result['colors'];
+	var colors = hex['hex'];
+	$('body').css('background-color', colors[0]);
+	$('.thumbnail').css('background-color', colors[1]);
+	$('h1, h2, h3, h4, h5, h5').css('color', colors[2]);
+	$('p').css('color', colors[3]);
+	$('.project img').css('opacity', .75);
 }
